@@ -7,7 +7,7 @@ This is the example of the testing code corresponding with our recently TPAMI ac
 ## Brief description of our method
 Since different face detectors provide face bounding boxes with different scales and center shifts, see the following figure (a), they impose great difficulties to face alignment for face shape modeling and learning. Regression-based face alignment algorithms learn to predict the landmark locations provided by some human annotators in the benchmarks. However, there is no uniform annotation protocol for landmark positions, these landmark annotations usually exhibit significant variations in different benchmarks, as shown in the following figure (b).
 
-<img src="figures/motivation.png" width = "50%" />
+<img src="https://img-blog.csdnimg.cn/20210410172435693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoYW94aWFvaHUx,size_16,color_FFFFFF,t_70" width = "50%" />
 
 To deal with the above two issues, we present a novel deep architecture with progressive reinitialization and adaptive error-driven learning to obtain high-performance face alignment results (see the following figure). The resulting deep architecture permits training from end to end and produces accurate and robust facial alignments.
 
