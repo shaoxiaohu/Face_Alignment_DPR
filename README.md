@@ -21,7 +21,7 @@ To deal with the above two issues, we present a novel deep architecture with pro
  pip install -r requirements.txt 
  
 ## Run the testing code
-We have released two 98-landmark models based on our global/local regression stages, GSR$_\omega$ and G&LSR$_\omega$, whose learning are supervised by the landmark-weighted loss function on the WFLW training dataset.
+We have released two 98-landmark models based on our global/local regression stages, GSRw and G&LSRw, whose learning are supervised by the landmark-weighted loss function on the WFLW training dataset.
 
 When the environment is configured successfully, you can just download the code and run the following script:
 
