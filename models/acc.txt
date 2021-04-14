@@ -1,0 +1,10 @@
+wflw
+(1) gstn:
+mean_error:  0.05352563024483836
+AUC(@0.10): 0.485886
+ Failure rate: 6.837265
+
+(2)gstn+lstn:
+mean_error:  0.050785023256610363
+AUC(@0.10): 0.513569
+ Failure rate: 6.157537
