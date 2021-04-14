@@ -1,5 +1,4 @@
 # FaceAlignmentDPR 
-The testing code of the TPAMI 2021 paper **"Robust Face Alignment via Deep Progressive Reinitialization and Adaptive Error-driven Learning"**.
 
 ## Introduction
 This is the example of the testing code corresponding with our recently TPAMI accepted paper **"Robust Face Alignment via Deep Progressive Reinitialization and Adaptive Error-driven Learning"**.
@@ -7,7 +6,7 @@ This is the example of the testing code corresponding with our recently TPAMI ac
 ## Brief description of our method
 Since different face detectors provide face bounding boxes with different scales and center shifts, see the following figure (a), they impose great difficulties to face alignment for face shape modeling and learning. Regression-based face alignment algorithms learn to predict the landmark locations provided by some human annotators in the benchmarks. However, there is no uniform annotation protocol for landmark positions, these landmark annotations usually exhibit significant variations in different benchmarks, as shown in the following figure (b).
 
-<img src="https://img-blog.csdnimg.cn/20210410172435693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoYW94aWFvaHUx,size_16,color_FFFFFF,t_70" width = "50%" />
+<img src="figures/motivation.png" width = "50%" />
 
 To deal with the above two issues, we present a novel deep architecture with progressive reinitialization and adaptive error-driven learning to obtain high-performance face alignment results (see the following figure). The resulting deep architecture permits training from end to end and produces accurate and robust facial alignments.
 
@@ -36,23 +35,24 @@ Then the face aligment results on several examples of the WFLW dataset can be ob
 
 ## Comments
 #### Python Platform 
-In our paper, the running speed of our method on GPU is evaluated on the  CAFFE platform. Considering the popularity of Pytorch, we select the Pytorch version instead.  For the CAFFE verison of the original two-stage reinitialization, you can refer to [our previous code ](https://github.com/shaoxiaohu/Face_Alignment_Two_Stage_Re-initialization.git) if neccesary.
+In our paper, the running speed of our method on GPU is evaluated on the  CAFFE platform. Considering the popularity of Pytorch, we select the Pytorch version instead.  For the CAFFE verison of the original two-stage reinitialization, you can refer to [our previous code](https://github.com/shaoxiaohu/Face_Alignment_Two_Stage_Re-initialization.git) if neccesary.
 
 #### Local Regression Sub-network
 In the current project, we employ the proposed Small MobileNetV2 to build the local regression sub-network. Thus it can be finetuned on the global regression model to streamline the training process. 
 
 #### Trick of Image Transformation
-We have injected the image and landmark transformation as independent layers to the whole network structure and make the model training in an end-to-end way, you can find more details by referring to the codes of st_lay.cpp and point_transformer_layer.cpp at [our previous code ](https://github.com/shaoxiaohu/Face_Alignment_Two_Stage_Re-initialization.git). In the currently released code, it is noted that the image and landmark transformation between the reinitialization and regression sub-networks is implemented outside of the network inference. The reason is that we find that the spatial transformation on the whole image instead of the faces and local parts can efficiently retain more valid texture information, and it can be seen as a trick to take full advantage of reinitialization parameters. 
+We have injected the image and landmark transformation as independent layers to the whole network structure and make the model training in an end-to-end way, you can find more details by referring to the codes of st_lay.cpp and point_transformer_layer.cpp at [our previous code](https://github.com/shaoxiaohu/Face_Alignment_Two_Stage_Re-initialization.git). In the currently released code, it is noted that the image and landmark transformation between the reinitialization and regression sub-networks is implemented outside of the network inference. The reason is that we find that the spatial transformation on the whole image instead of the faces and local parts can efficiently retain more valid texture information, and it can be seen as a trick to take full advantage of reinitialization parameters. 
 
 #### Speed and Accuracy
-| Model |NME(%)  | FR$_{0.1}$(%) |AUC|Speed*(ms)|
+
+| Model |NME(%)  | FR(%) |AUC|Speed*(ms)|
 |--|--|--|--|--|
-| GSR$_\omega$ |  5.35|  6.84 |0.4859   | 39 | 
-| G&LSR$_\omega$  | 5.08 |6.16   |0.5079   | 79  | 
+| GSRw |  5.35|  6.84 |0.4859   | 39 | 
+| G&LSRw  | 5.08 |6.16   |0.5079   | 79  | 
 
 * The symbol \* denotes that the running speed is evaluated at the device with the Nvidia P100 GPU and the Intel Xeon(R) CPU E5-2682 v4 @ 2.50GHz CPU.
 
-Because of the usage of the Small MobileNetV2 in the local stage, G&LSR$_\omega$ achieves better NMEs and AUC performance on WFLW than that reported in our journal paper. Limited by the non-optimized memory management of Pytorch, the released code on GPU has a slower speed, while the same models GSR$_\omega$ and G&LSR$_\omega$ implemented by MNN on iPhone 6S cost only about 7 ms and 13.6 ms, respectively.
+Because of the usage of the Small MobileNetV2 in the local stage, G&LSRw achieves better NMEs and AUC performance on WFLW than that reported in our journal paper. Limited by the non-optimized memory management of Pytorch, the released code on GPU has a slower speed, while the same models GSRw and G&LSRw implemented by MNN on iPhone 6S cost only about 7 ms and 13.6 ms, respectively.
 
 ## Moblie demo
 We have also released a 106-landmark model based on our architecture. It is implemented by the MNN framework, and please refer to [106-landmark model](https://github.com/alibaba/MNNKit/blob/master/doc/FaceDetection_CN.md).
